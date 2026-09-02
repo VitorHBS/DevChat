@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: livechat-db
+    restart: always
+    environment:
+      POSTGRES_USER: livechat_user
+      POSTGRES_PASSWORD: livechat_pass
+      POSTGRES_DB: livechat_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - livechat-db-data:/var/lib/postgresql/data
+
+volumes:
+  livechat-db-data:

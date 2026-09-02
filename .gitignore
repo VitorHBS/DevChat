@@ -1,3 +1,30 @@
-.env
+# Dependências
 node_modules/
+
+# Build/compilação do TypeScript
 dist/
+
+# Variáveis de ambiente (contém dados sensíveis: senha do banco, secret do JWT)
+.env
+.env.*
+!.env.example
+
+# Arquivos enviados pelos usuários (imagens, áudios)
+uploads/*
+!uploads/.gitkeep
+
+# Logs
+npm-debug.log*
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/settings.json
+.idea/
+
+# Prisma (gerado automaticamente, não precisa versionar)
+generated/
