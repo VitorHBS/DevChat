@@ -18,12 +18,22 @@ enum Status {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
+  id             Int       @id @default(autoincrement())
+  name           String
   profilePicture String?
-  phone String @unique
-  password String
-  status Status @default(OFFLINE)
-  lastSeen DateTime?
-  createdAt DateTime @default(now())
+  phone          String    @unique
+  password       String
+  status         Status    @default(OFFLINE)
+  lastSeen       DateTime?
+  createdAt      DateTime  @default(now())
+}
+
+model Conversation {
+  id               Int       @id @default(autoincrement())
+  isGroup          Boolean   @default(false)
+  nameGroup        String?
+  descriptionGroup String?
+  photoGroup       String?
+  createdAt        DateTime  @default(now())
+  lastMessageAt    DateTime?
 }
