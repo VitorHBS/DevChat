@@ -17,23 +17,94 @@ enum Status {
   OFFLINE
 }
 
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum TypeMessage {
+  TEXT
+  AUDIO
+  IMAGE
+}
+
+enum TypeAttachment {
+  AUDIO
+  IMAGE
+}
+
 model User {
-  id             Int       @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
   name           String
   profilePicture String?
-  phone          String    @unique
+  phone          String        @unique
   password       String
-  status         Status    @default(OFFLINE)
+  status         Status        @default(OFFLINE)
   lastSeen       DateTime?
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime      @default(now())
+  participations Participant[]
+  messages       Message[]
 }
 
 model Conversation {
-  id               Int       @id @default(autoincrement())
-  isGroup          Boolean   @default(false)
+  id               Int           @id @default(autoincrement())
+  isGroup          Boolean       @default(false)
   nameGroup        String?
   descriptionGroup String?
   photoGroup       String?
-  createdAt        DateTime  @default(now())
+  createdAt        DateTime      @default(now())
   lastMessageAt    DateTime?
+  participations   Participant[]
+
+  messages Message[]
+}
+
+model Participant {
+  id       Int       @id @default(autoincrement())
+  role     Role      @default(MEMBER)
+  joinedAt DateTime  @default(now())
+  leftAt   DateTime?
+  muted    Boolean   @default(false)
+  pinned   Boolean   @default(false)
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId Int
+}
+
+model Message {
+  id         Int         @id @default(autoincrement())
+  type       TypeMessage
+  content    String?
+  sendAt     DateTime    @default(now())
+  wasEdited  Boolean     @default(false)
+  editedAt   DateTime?
+  wasDeleted Boolean     @default(false)
+  deletedAt  DateTime?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  conversationId Int
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+
+  attachmentId Int?        @unique
+  attachment   Attachment? @relation(fields: [attachmentId], references: [id])
+
+  repliedToId Int?
+  repliedTo  Message? @relation("MessageReplies", fields: [repliedToId], references: [id])
+
+  replies Message[] @relation("MessageReplies")
+}
+
+model Attachment {
+  id       Int            @id @default(autoincrement())
+  url      String
+  type     TypeAttachment
+  size     Float
+  duration Float?
+
+  message Message?
 }
