@@ -9,12 +9,21 @@
 </head>
 
 <body>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-        <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
+    <div class="username_page">
+        <div class="username_container">
+            <input type="text" id="usernameInput">
+            <button id="usernameButton">Confirmar</button>
+        </div>
+    </div>
+    <div class="chat_container off">
+        <ul id="messages"></ul>
+        <form id="form" action="">
+            <input id="input" autocomplete="off" /><button>Send</button>
+        </form>
+    </div>
+
     <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

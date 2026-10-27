@@ -17,6 +17,6 @@ const server = createServer(app);
 initializeSocket(server);
 
 server.listen(process.env.PORT, () => {
-    console.log('Servidor Rodando')
+    console.log(`Servidor rodando na porta: ${process.env.PORT}`)
 });
 
