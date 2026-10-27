@@ -1,26 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="theme-color" content="#101522">
+    <title>DevChat — conversas que aproximam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <div class="username_page">
-        <div class="username_container">
-            <input type="text" id="usernameInput">
-            <button id="usernameButton">Confirmar</button>
-        </div>
-    </div>
-    <div class="chat_container off">
-        <ul id="messages"></ul>
-        <form id="form" action="">
-            <input id="input" autocomplete="off" /><button>Send</button>
-        </form>
-    </div>
+    <main>
+        <section class="username_page" aria-labelledby="loginTitle">
+            <div class="login-glow login-glow-one"></div>
+            <div class="login-glow login-glow-two"></div>
+
+            <div class="login-card">
+                <a class="brand brand-login" href="#" aria-label="DevChat início">
+                    <span class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path d="M7 8.5A3.5 3.5 0 0 1 10.5 5h11A3.5 3.5 0 0 1 25 8.5v8a3.5 3.5 0 0 1-3.5 3.5H15l-5.8 4.2c-.7.5-1.7 0-1.7-.9V20A3.5 3.5 0 0 1 5 16.5v-8A3.5 3.5 0 0 1 7 8.5Z" fill="currentColor"/>
+                            <path d="M11 12h10M11 16h6" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    <span>dev<span class="brand-accent">chat</span></span>
+                </a>
+
+                <div class="login-art" aria-hidden="true">
+                    <div class="art-orbit orbit-one"></div>
+                    <div class="art-orbit orbit-two"></div>
+                    <div class="art-center">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path d="M7 8.5A3.5 3.5 0 0 1 10.5 5h11A3.5 3.5 0 0 1 25 8.5v8a3.5 3.5 0 0 1-3.5 3.5H15l-5.8 4.2c-.7.5-1.7 0-1.7-.9V20A3.5 3.5 0 0 1 5 16.5v-8A3.5 3.5 0 0 1 7 8.5Z" fill="currentColor"/>
+                            <path d="M11 12h10M11 16h6" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="art-dot art-dot-one"></span>
+                    <span class="art-dot art-dot-two"></span>
+                    <span class="art-dot art-dot-three"></span>
+                </div>
+
+                <div class="login-copy">
+                    <span class="eyebrow"><span class="eyebrow-dot"></span> SEU ESPAÇO DE CONVERSA</span>
+                    <h1 id="loginTitle">Boas conversas<br>começam com <span>oi.</span></h1>
+                    <p>Entre no DevChat e fique pertinho de quem importa.</p>
+                </div>
+
+                <div class="username_container">
+                    <label for="usernameInput">Como podemos te chamar?</label>
+                    <div class="login-input-wrap">
+                        <span class="input-user-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.7"/>
+                                <path d="M5 20c.7-3.2 3.1-5 7-5s6.3 1.8 7 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <input type="text" id="usernameInput" placeholder="Seu nome ou apelido" autocomplete="nickname" maxlength="32">
+                    </div>
+                    <button id="usernameButton" type="button">
+                        Entrar no chat
+                        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                            <path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <p class="login-footnote"><span class="lock-icon" aria-hidden="true">⌑</span> Um lugar simples para estar junto.</p>
+            </div>
+            <p class="login-version">FEITO PARA BOAS CONVERSAS <span>•</span> DEVCHAT</p>
+        </section>
+
+        <section class="chat_container off" aria-label="Conversa do DevChat">
+            <aside class="sidebar">
+                <div class="sidebar-top">
+                    <a class="brand" href="#" aria-label="DevChat início">
+                        <span class="brand-mark" aria-hidden="true">
+                            <svg viewBox="0 0 32 32" fill="none">
+                                <path d="M7 8.5A3.5 3.5 0 0 1 10.5 5h11A3.5 3.5 0 0 1 25 8.5v8a3.5 3.5 0 0 1-3.5 3.5H15l-5.8 4.2c-.7.5-1.7 0-1.7-.9V20A3.5 3.5 0 0 1 5 16.5v-8A3.5 3.5 0 0 1 7 8.5Z" fill="currentColor"/>
+                                <path d="M11 12h10M11 16h6" stroke="#111827" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span>dev<span class="brand-accent">chat</span></span>
+                    </a>
+                    <button class="icon-button sidebar-menu-button" type="button" aria-label="Abrir menu">
+                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
+                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                            <circle cx="19" cy="12" r="1.5" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <button class="new-chat-button" type="button" id="newChatButton">
+                    <span class="new-chat-icon">+</span>
+                    Nova conversa
+                    <span class="shortcut">⌘ K</span>
+                </button>
+
+                <div class="sidebar-label-row">
+                    <span class="sidebar-label">MENSAGENS</span>
+                    <button class="icon-button add-conversation-button" type="button" aria-label="Adicionar conversa">
+                        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                            <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="conversation-list" id="conversationList">
+                    <button class="conversation-item active" type="button" id="conversationGeneral">
+                        <span class="conversation-avatar avatar-gradient">D<span class="online-indicator"></span></span>
+                        <span class="conversation-info">
+                            <span class="conversation-name">DevChat geral</span>
+                            <span class="conversation-preview">Seu espaço começa aqui</span>
+                        </span>
+                        <span class="conversation-time">agora</span>
+                    </button>
+                    <div class="conversation-empty">
+                        <span class="empty-line"></span>
+                        <span>Suas conversas vão aparecer aqui</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-bottom">
+                    <div class="profile-card" id="currentUserProfile">
+                        <span class="profile-avatar" id="profileAvatar">V</span>
+                        <span class="profile-info">
+                            <span class="profile-name" id="profileName">Visitante</span>
+                            <span class="profile-status"><span></span> Disponível</span>
+                        </span>
+                        <button class="icon-button profile-menu-button" type="button" aria-label="Opções do perfil">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
+                                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                                <circle cx="19" cy="12" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="chat-main">
+                <header class="chat-header">
+                    <div class="chat-heading">
+                        <span class="header-avatar avatar-gradient">D</span>
+                        <div>
+                            <h2 id="conversationTitle">DevChat geral</h2>
+                            <p><span class="status-pulse"></span> Seu cantinho para conversar</p>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-button header-action" type="button" aria-label="Pesquisar mensagens">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/>
+                                <path d="m16 16 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <button class="icon-button header-action" type="button" aria-label="Mais opções da conversa">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <circle cx="5" cy="12" r="1.5" fill="currentColor"/>
+                                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                                <circle cx="19" cy="12" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="chat-content">
+                    <div class="chat-welcome" aria-hidden="true">
+                        <span class="welcome-sparkle">✳</span>
+                        <span>UM BOM LUGAR PARA COMEÇAR</span>
+                        <h3>As melhores conversas<br>começam por aqui.</h3>
+                        <p>Escreva sua primeira mensagem e diga oi para todo mundo.</p>
+                        <div class="welcome-decoration decoration-one"></div>
+                        <div class="welcome-decoration decoration-two"></div>
+                    </div>
+                    <ul id="messages" aria-live="polite" aria-label="Mensagens da conversa"></ul>
+                </div>
+
+                <footer class="composer-area">
+                    <form id="form" class="message-composer" action="">
+                        <button class="composer-tool" type="button" aria-label="Adicionar anexo">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        <input id="input" type="text" autocomplete="off" placeholder="Escreva uma mensagem..." aria-label="Escreva uma mensagem">
+                        <button class="emoji-button" type="button" aria-label="Adicionar emoji">☺</button>
+                        <span class="composer-divider"></span>
+                        <button class="send-button" type="submit" aria-label="Enviar mensagem">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="m21 3-7.2 18-3.6-7.2L3 10.2 21 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                                <path d="M10.2 13.8 15 9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <p class="composer-hint">Pressione <kbd>Enter</kbd> para enviar <span>•</span> Uma conversa de cada vez.</p>
+                </footer>
+            </section>
+        </section>
+    </main>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/script.js"></script>
