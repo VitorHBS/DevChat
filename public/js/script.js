@@ -10,12 +10,12 @@ const usernameButton = document.getElementById('usernameButton')
 const usernamePage = document.querySelector('.username_page');
 const chatContainer = document.querySelector('.chat_container')
 
-// Estado temporário deste navegador; ainda não representa uma conta autenticada.
+
 let username = '';
-// Lista recebida do servidor. Pode ser usada depois para mostrar quem está online.
-let userList = [];
 // Evita enviar vários pedidos de entrada antes de o servidor responder.
 let joinPending = false;
+let joined = false;
+let wasDisconnected = false;
 
 // Valida o apelido e pede ao servidor para associá-lo a esta conexão.
 function requestJoin() {
@@ -27,8 +27,18 @@ function requestJoin() {
 
     username = name;
     joinPending = true;
+    joined = false;
     document.title = 'Chat (' + username + ')';
     socket.emit('join-request', username);
+}
+
+// Adiciona texto à lista sem interpretar conteúdo recebido como HTML.
+function addMessage(text, className = '') {
+    const item = document.createElement('li');
+    item.className = className;
+    item.textContent = text;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 usernameButton.addEventListener('click', requestJoin);
@@ -44,38 +54,53 @@ usernameInput.addEventListener('keydown', (event) => {
 // Só troca para o chat depois que o servidor confirma o pedido de entrada.
 socket.on('user-ok', () => {
     joinPending = false;
+    joined = true;
     usernamePage.classList.add('off');
     chatContainer.classList.remove('off')
 
     document.getElementById('profileName').textContent = username;
     document.getElementById('profileAvatar').textContent = username.charAt(0).toUpperCase();
+    if (wasDisconnected) {
+        addMessage('Conexão restabelecida.', 'status-message');
+        wasDisconnected = false;
+    }
     console.log('Conectado')
 })
 
-// Envia o texto ao servidor; a conexão informa ao servidor quem está enviando.
+// Uma reconexão cria uma nova conexão no servidor, então registra o apelido de novo.
+socket.on('connect', () => {
+    if (username && !joined) {
+        joinPending = true;
+        socket.emit('join-request', username);
+    }
+});
+
+socket.on('disconnect', () => {
+    if (username) {
+        joined = false;
+        wasDisconnected = true;
+        addMessage('Conexão perdida. Tentando reconectar...', 'status-message');
+    }
+});
+
+// Envia a mensagem somente depois de o servidor confirmar a entrada na conexão atual.
 form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (input.value) {
-        socket.emit('chat message', input.value);
+    const message = input.value.trim();
+    if (message && joined) {
+        socket.emit('chat message', message);
         input.value = '';
+    } else if (message) {
+        addMessage('Aguarde a reconexão antes de enviar sua mensagem.', 'status-message');
     };
 });
 
-
-// O servidor envia aqui as mensagens dos outros clientes; falta montar e
-// adicionar o elemento da mensagem para que elas apareçam na página.
+// Mostra as mensagens enviadas pelos outros clientes com o nome do remetente.
 socket.on('show-msg', (data) => {
-    const msg = document.createElement('li');
-    msg.textContent = `${data.username}: ${data.msg}`;
-
-    messages.appendChild(msg);
-    window.scrollTo(0, document.body.scrollHeight);
+    addMessage(`${data.username}: ${data.msg}`);
 })
 
+// Mostra apenas o texto da mensagem para quem a enviou.
 socket.on('own-msg', (data) => {
-    const userMsg = document.createElement('li');
-    userMsg.textContent = data.msg;
-
-    messages.appendChild(userMsg);
-    window.scrollTo(0, document.body.scrollHeight);
+    addMessage(data.msg);
 })

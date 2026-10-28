@@ -29,9 +29,12 @@ export function initializeSocket(server: HttpServer) {
 
         // Combina o apelido guardado na conexão com o texto recebido.
         socket.on('chat message', (msg) => {
+            if(!socket.data.username) return
+            if(typeof msg !== 'string' || !msg.trim()) return
+
             let obj = {
                 username: socket.data.username,
-                msg: msg
+                msg: msg.trim()
             }
 
             // Envia somente aos outros clientes; o remetente não recebe este evento.
